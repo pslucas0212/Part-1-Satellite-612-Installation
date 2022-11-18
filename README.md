@@ -124,12 +124,23 @@ If the installation is progressing successfully, your screen output will look si
 2022-11-18 16:10:20 [NOTICE] [root] Use -l to set the terminal output log level to ERROR, WARN, NOTICE, INFO, or DEBUG. See --full-help for definitions.
 2022-11-18 16:13:07 [NOTICE] [configure] Starting system configuration.
 2022-11-18 16:13:42 [NOTICE] [configure] 250 configuration steps out of 1530 steps complete.
-2022-11-18 16:14:18 [NOTICE] [configure] 500 configuration steps out of 1531 steps complete.
+ 2022-11-18 16:14:18 [NOTICE] [configure] 500 configuration steps out of 1531 steps complete.
 2022-11-18 16:14:21 [NOTICE] [configure] 750 configuration steps out of 1535 steps complete.
 2022-11-18 16:15:33 [NOTICE] [configure] 1000 configuration steps out of 1560 steps complete.
-...
+2022-11-18 16:16:02 [NOTICE] [configure] 1250 configuration steps out of 1560 steps complete.
+2022-11-18 16:22:59 [NOTICE] [configure] 1500 configuration steps out of 1560 steps complete.
+2022-11-18 16:23:14 [NOTICE] [configure] System configuration has finished.
+  Success!
+  * Satellite is running at https://sat01.example.com
+      Initial credentials are admin / Passw0rd!
 
+  * To install an additional Capsule on separate machine continue by running:
 
+      capsule-certs-generate --foreman-proxy-fqdn "$CAPSULE" --certs-tar "/root/$CAPSULE-certs.tar"
+  * Capsule is running at https://sat01.example.com:9090
+
+  The full log is at /var/log/foreman-installer/satellite.log
+Package versions are being locked.
 ```
 
 Use the following command to find the name of the Satellite server you just updated.
@@ -137,7 +148,7 @@ Use the following command to find the name of the Satellite server you just upda
 # hammer proxy list
 ```
 
-See which services are configured on your Satellite server.  We want to verify that the DNS and DHCP services are enabled.
+See which services are configured on your Satellite server.  
 ```
 # hammer proxy info --name sat01.example.com
 ```
