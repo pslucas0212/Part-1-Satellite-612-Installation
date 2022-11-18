@@ -21,10 +21,14 @@ For this lab environment I chose sat01.example.com for the hostname of the serve
 Check hostname and local DNS resolution.  Use dig to test forward and reverse lookup of the server hosting Satellite.  If the Satellite hostname is not available from DNS, the initial installation will fail.    
 ```
 # ping -c3 localhost
-# ping -c3 `hostname -f`
+# ping -c3 sat01.example.com -f
 # dig sat01.example.com +short
 # dig -x 10.1.10.254 +short
 ```   
+```
+# hostnamectl set-hostname sat01.example.com
+```
+
 Verify the time server with chrony.  I have a local time server that my systems use for synching time.  Type the following command to check the the time synch status.  
 ```
 # chronyc sources -v
