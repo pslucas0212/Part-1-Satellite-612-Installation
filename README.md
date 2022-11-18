@@ -104,7 +104,7 @@ Verify the firewall changes
 ### Satellite Installation
 Install Satellite Server packages and then install Satellite.  
 ```     
-# sudo yum install satellite
+# dnf install satellite
 ```
 
 We will run the satellite-installer to create a userid and password along with the information to configure the DNS, DHCP and TFTP services.  This will take several minutes to complete.  
