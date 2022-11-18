@@ -107,61 +107,29 @@ Install Satellite Server packages and then install Satellite.
 # dnf install satellite
 ```
 
-We will run the satellite-installer to create a userid and password along with the information to configure the DNS, DHCP and TFTP services.  This will take several minutes to complete.  
+We will run the initial satellite-installer to create a userid and password.  Later in this tutorial we will configure Satellite to use external DNS and DHPC services.  This initial configuration will take several minutes to complete.  
 ```
 # satellite-installer --scenario satellite \
+--foreman-initial-organization "Operations Department" \
+--foreman-initial-location "Moline" \
 --foreman-initial-admin-username admin \
 --foreman-initial-admin-password Passw0rd! \
---foreman-proxy-dhcp true \
---foreman-proxy-dhcp-managed true \
---foreman-proxy-dhcp-gateway "10.1.10.1" \
---foreman-proxy-dhcp-interface "ens192" \
---foreman-proxy-dhcp-nameservers "10.1.10.254" \
---foreman-proxy-dhcp-range "10.1.10.149 10.1.10.199" \
---foreman-proxy-dhcp-server "10.1.10.254" \
---foreman-proxy-dns true \
---foreman-proxy-dns-managed true \
---foreman-proxy-dns-forwarders "10.1.1.254" \
---foreman-proxy-dns-interface "ens192" \
---foreman-proxy-dns-reverse "10.1.10.in-addr.arpa" \
---foreman-proxy-dns-server "127.0.0.1" \
---foreman-proxy-dns-zone "example.com" \
---foreman-proxy-tftp true \
---foreman-proxy-tftp-managed true
+--foreman-proxy-dhcp-managed false \
+--foreman-proxy-dns-managed false
 ```
 If the installation is progressing successfully, your screen output will look similar to the following example.
 ```
-2021-11-03 15:48:05 [NOTICE] [root] Loading default values from puppet modules...
-2021-11-03 15:48:08 [NOTICE] [root] ... finished
-2021-11-03 15:48:09 [NOTICE] [root] Running validation checks
-2021-11-03 15:50:50 [NOTICE] [configure] Starting system configuration.
-  The total number of configuration tasks may increase during the run.
-  Observe logs or specify --verbose-log-level to see individual configuration tasks.
-2021-11-03 15:51:01 [NOTICE] [configure] 100 out of 2460 done.
-2021-11-03 15:51:01 [NOTICE] [configure] 200 out of 2460 done.
-2021-11-03 15:51:22 [NOTICE] [configure] 300 out of 2460 done.
-2021-11-03 15:52:12 [NOTICE] [configure] 400 out of 2460 done.
+2022-11-18 16:10:17 [NOTICE] [root] Loading installer configuration. This will take some time.
+2022-11-18 16:10:20 [NOTICE] [root] Running installer with log based terminal output at level NOTICE.
+2022-11-18 16:10:20 [NOTICE] [root] Use -l to set the terminal output log level to ERROR, WARN, NOTICE, INFO, or DEBUG. See --full-help for definitions.
+2022-11-18 16:13:07 [NOTICE] [configure] Starting system configuration.
+2022-11-18 16:13:42 [NOTICE] [configure] 250 configuration steps out of 1530 steps complete.
+2022-11-18 16:14:18 [NOTICE] [configure] 500 configuration steps out of 1531 steps complete.
+2022-11-18 16:14:21 [NOTICE] [configure] 750 configuration steps out of 1535 steps complete.
+2022-11-18 16:15:33 [NOTICE] [configure] 1000 configuration steps out of 1560 steps complete.
 ...
-2021-11-03 16:06:20 [NOTICE] [configure] 3000 out of 3300 done.
-2021-11-03 16:06:31 [NOTICE] [configure] 3100 out of 3300 done.
-2021-11-03 16:08:06 [NOTICE] [configure] 3200 out of 3300 done.
-2021-11-03 16:08:31 [NOTICE] [configure] System configuration has finished.
-  Success!
-  * Satellite is running at https://sat01.example.com
-      Initial credentials are admin / Passw0rd!
 
-  * To install an additional Capsule on separate machine continue by running:
 
-      capsule-certs-generate --foreman-proxy-fqdn "$CAPSULE" --certs-tar "/root/$CAPSULE-certs.tar"
-  * Capsule is running at https://sat01.example.com:9090
-
-  The full log is at /var/log/foreman-installer/satellite.log
-Package versions are being locked.
-```
-Remember that earlier I said that we will use Satellite for DNS services.  After completing the install above, I change the IP address of my server hosting Satellite and rerun the satellite-installer to update the ip address for the --foreman-proxy-dns-server option.
-```
-satellite-installer --scenario satellite \
---foreman-proxy-dns-server "10.1.10.254"
 ```
 
 Use the following command to find the name of the Satellite server you just updated.
@@ -173,12 +141,6 @@ See which services are configured on your Satellite server.  We want to verify t
 ```
 # hammer proxy info --name sat01.example.com
 ```
-
-If services such as DNS or DHCP are not part of the output from the previous command, try refreshing the Satellite features.
-```
-# hammer proxy refresh-features --name sat01.example.com
-```
- 
 
 ### Login into the Satellite console  
 
