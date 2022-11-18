@@ -25,6 +25,7 @@ Check hostname and local DNS resolution.  Use dig to test forward and reverse lo
 # dig sat01.example.com +short
 # dig -x 10.1.10.254 +short
 ```   
+We will set the hostname on the server to avoid any future issues.
 ```
 # hostnamectl set-hostname sat01.example.com
 ```
