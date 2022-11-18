@@ -4,7 +4,9 @@
 
 Red Hat Satellite is a powerful content management and provisioning tool that you can add to any Red Hat Enterprise Linux subscription with the addition of a Smart Management subscription.  With Red Hat Satellite you can curate specific content across mutliple lifecycle environments through out your entire RHEL enviroment whether it is on-prem, in the cloud or hybrid.  In fact you can use Red Hat Satellite with your market-place instances of RHEL.  
 
-In this multi-part tutorial we will covering how to provision RHEL VMs to a vSphere environment from Red Hat Satellite.  We will focus on provisioning RHEL 8.7 and 9.1 VMs in two life cycle envrionments, and you can easily adapt what you learn here to provision other RHEL versions.
+In this multi-part tutorial we will covering how to provision RHEL VMs to a vSphere environment from Red Hat Satellite.  We will focus on provisioning RHEL 8.7 and 9.1 VMs using two Satellite RHEL 
+
+life cycle envrionments, and you can easily adapt what you learn here to provision other RHEL versions.
 
 In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.12.  The purpose of this setup is to give you a quick hands-on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 7.3 lab environment with three EXSi servers that have internet access for the installation.  For this lab, I setup a separate server to host DNS and DHCP services for the network that is hosting Satellite and the vSphere environment.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.  
 
