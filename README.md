@@ -57,6 +57,10 @@ Enable the following repositories.
 --enable=satellite-6.12-for-rhel-8-x86_64-rpms \
 --enable=satellite-maintenance-6.12-for-rhel-8-x86_64-rpms
 ```
+Verify that repositories are enabled.
+```
+# sudo subscription-manager repos --list-enabled
+```
 Enable the Satellite module.
 ```
 # dnf module enable satellite:el8
