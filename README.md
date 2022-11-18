@@ -25,7 +25,10 @@ Check hostname and local DNS resolution.  Use dig to test forward and reverse lo
 # dig sat01.example.com +short
 # dig -x 10.1.10.254 +short
 ```   
-
+Verify the time server with chrony.  I have a local time server that my systems use for synching time.  Type the following command to check the the time synch status.  
+```
+# chronyc sources -v
+```
 Register Satellite Server to Red Hat Subscription Management service.
 ```
 # sudo subscription-manager register --org=<org id> --activationkey=<activation key>
@@ -44,47 +47,39 @@ Disable all repos.
 ```       
 Enable the following repositories.
 ```    
-# sudo subscription-manager repos --enable=rhel-7-server-rpms \
---enable=rhel-7-server-satellite-6.9-rpms \
---enable=rhel-7-server-satellite-maintenance-6-rpms \
---enable=rhel-server-rhscl-7-rpms \
---enable=rhel-7-server-ansible-2.9-rpms
+# subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rpms \
+--enable=rhel-8-for-x86_64-appstream-rpms \
+--enable=satellite-6.12-for-rhel-8-x86_64-rpms \
+--enable=satellite-maintenance-6.12-for-rhel-8-x86_64-rpms
 ```
-Clear any meta-data.   
-```    
-# sudo yum clean all
-```          
-Verify that repositories are enabled.  
-```    
-# sudo yum repolist enabled
-# sudo subscription-manager repos --list-enabled
-```          
+Enable the Satellite module.
+```
+# dnf module enable satellite:el8
+```
 
-#### Update the RHEL 7.9 instance and finish server setup
-Install all patches on your RHEL 7.9 instance.
+Update all packages.
 ```
-# sudo yum -y update
-```
- 
-I would also recommend registering this server to Insights.  
-```
-# yum -y install insights-client
-# insights-client --enable
+# dnf update
 ```
 Install SOS package on base OS for initial systems analysis in case you need to collect problem determination for any system related issues.  
 ```
-# sudo yum install sos
+# dnf install sos
+```
+ I would also recommend registering this server to Insights.  
+```
+# insights-client --register
 ```
 
 Update the firewall rules for Satellite.
 ```
-# sudo firewall-cmd \
---add-port="80/tcp" --add-port="443/tcp" \
---add-port="5647/tcp" --add-port="8000/tcp" \
---add-port="8140/tcp" --add-port="9090/tcp" \
+# firewall-cmd \
 --add-port="53/udp" --add-port="53/tcp" \
---add-port="67/udp" --add-port="69/udp" \
---add-port="5000/tcp"
+--add-port="67/udp" \
+--add-port="69/udp" \
+--add-port="80/tcp" --add-port="443/tcp" \
+--add-port="5647/tcp" \
+--add-port="8000/tcp" --add-port="9090/tcp" \
+--add-port="8140/tcp"
 ```
 
 Make the firewall changes permanent
@@ -96,11 +91,6 @@ Verify the firewall changes
 ```
 # sudo firewall-cmd --list-all
 ```
-Setup system Clock with chrony.  I have a local time server that my systems use for synching time.  Type the following command to check the the time synch status.  
-```
-# chronyc sources -v
-```
-
 
 ### Satellite Installation
 Install Satellite Server packages and then install Satellite.  
