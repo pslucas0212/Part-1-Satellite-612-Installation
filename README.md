@@ -8,7 +8,7 @@ In this multi-part tutorial we will covering how to provision RHEL VMs to a vSph
 
 life cycle envrionments, and you can easily adapt what you learn here to provision other RHEL versions.
 
-In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.12.  The purpose of this setup is to give you a quick hands-on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 7.3 lab environment with three EXSi servers that have internet access for the installation.  For this lab, I setup a separate server to host DNS and DHCP services for the network that is hosting Satellite and the vSphere environment.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.  
+In part 1, I'm documenting the steps for a simple "lab" install of Satellite 6.12.  The purpose of this setup is to give you a quick hands-on experience with Satellite.  The lab infrastructure is deployed to a small vSphere 7.0 lab environment with three EXSi servers that have internet access for the installation.  For this lab, I setup a separate server to host DNS and DHCP services for the network that is hosting Satellite and the vSphere environment.  Also, in a production environment you would also want to configure Satellite to interact with your directory/security services.  
 
 I would recommend creating a local time server and configure all system in this lab environment to use the same local time source.
 
@@ -16,18 +16,16 @@ I would recommend creating a local time server and configure all system in this 
 ### Pre-Reqs
 
 
-Create a VM for Satellite and install RHEL 8.7.  The VM was sized with 4 vCPUS, 20GB RAM and 400GB "local" drive.  Note: For this example I have enabled Simple Content Access (SCA) on the Red Hat Customer portal and do not need to attach a subscription to the RHEL or Satellite repositories.  After you have created and started the RHEL 7.9 VM, we will ssh to the RHEL VM and work from the command line.
+Create a VM for Satellite and install RHEL 8.7.  The VM was sized with 4 vCPUS, 20GB RAM and 400GB "local" drive.  Note: For this example I have enabled Simple Content Access (SCA) on the Red Hat Customer portal and do not need to attach a subscription to the RHEL or Satellite repositories.  After you have created and started the RHEL 8.7 VM, we will ssh to the RHEL VM and work from the command line.
 
 For this lab environment I chose sat01.example.com for the hostname of the server hosting Satellite. 
-
-You will need a DNS server running to support the installation of Satellite.  After installing Satellite, we will use the DNS service on Satellite.    
 
 Check hostname and local DNS resolution.  Use dig to test forward and reverse lookup of the server hosting Satellite.  If the Satellite hostname is not available from DNS, the initial installation will fail.    
 ```
 # ping -c3 localhost
 # ping -c3 `hostname -f`
 # dig sat01.example.com +short
-# dig -x 10.1.10.253 +short
+# dig -x 10.1.10.254 +short
 ```   
 
 Register Satellite Server to Red Hat Subscription Management service.
