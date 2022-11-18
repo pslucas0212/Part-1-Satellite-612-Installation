@@ -66,7 +66,7 @@ Enable the Satellite module.
 # dnf module enable satellite:el8
 ```
 
-Update all packages.
+Update all packages.  This may take a few minutes to complete.
 ```
 # dnf update
 ```
