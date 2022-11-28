@@ -107,7 +107,11 @@ Install Satellite Server packages and then install Satellite.
 # dnf install satellite
 ```
 
-We will run the initial satellite-installer to create a userid and password.  Later in this tutorial we will configure Satellite to use external DNS and DHPC services.  This initial configuration will take several minutes to complete.  
+We will run the initial satellite-installer to create a username, password, organization and location.  Later in this tutorial we will configure Satellite to use external DNS and DHPC services.  
+
+Organizations are used to manage content related activities such as Red Hat product management, repositories and content views. Satellite can support mutliple organizations if that is required for your company and RHEL environments. We can use a location to logically map geographically separate areas to an organization.  For example, you may want to split content between US and European based manufacturing with two organizational views. You might create Ogranizations based on business units or deparatments. In this tutorial we will create a single organzation for our fictous Moline Operations team.
+
+This initial configuration will take several minutes to complete.  
 ```
 # satellite-installer --scenario satellite \
 --foreman-initial-organization "Operations Department" \
