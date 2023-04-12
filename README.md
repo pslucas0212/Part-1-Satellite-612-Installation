@@ -63,20 +63,20 @@ Verify that repositories are enabled.
 ```
 Enable the Satellite module.
 ```
-# dnf module enable satellite:el8
+# sudo dnf module enable satellite:el8
 ```
 
 Update all packages.  This may take a few minutes to complete.
 ```
-# dnf update
+# sudo dnf update
 ```
 Install SOS package on base OS for initial systems analysis in case you need to collect problem determination for any system related issues.  
 ```
-# dnf install sos
+# sudo dnf install sos
 ```
  I would also recommend registering this server to Insights.  
 ```
-# insights-client --register
+# sudo insights-client --register
 ```
 
 Update the firewall rules for Satellite.
