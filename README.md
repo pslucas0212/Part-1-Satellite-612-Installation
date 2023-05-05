@@ -117,7 +117,7 @@ This initial configuration will take several minutes to complete.
 --foreman-initial-organization "Operations Department" \
 --foreman-initial-location "Moline" \
 --foreman-initial-admin-username admin \
---foreman-initial-admin-password Passw0rd! \
+--foreman-initial-admin-password xxxxxxx \
 --foreman-proxy-dhcp-managed false \
 --foreman-proxy-dns-managed false
 ```
@@ -136,7 +136,7 @@ If the installation is progressing successfully, your screen output will look si
 2022-11-18 16:23:14 [NOTICE] [configure] System configuration has finished.
   Success!
   * Satellite is running at https://sat01.example.com
-      Initial credentials are admin / Passw0rd!
+      Initial credentials are admin / xxxxxxxx
 
   * To install an additional Capsule on separate machine continue by running:
 
